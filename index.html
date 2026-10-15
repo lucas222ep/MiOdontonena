@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Para mi odontonena favorita</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,500&family=Great+Vibes&family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --rosa-fondo-1: #ffd6e4;
+      --rosa-fondo-2: #ffb3cd;
+      --rosa-fuerte: #d63a73;
+      --vino: #7a1f45;
+      --marco: #fffaf7;
+      --dorado: #b98a4e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { min-height: 100%; }
+
+    body {
+      min-height: 100vh;
+      background: linear-gradient(160deg, var(--rosa-fondo-1) 0%, var(--rosa-fondo-2) 100%);
+      background-attachment: fixed;
+      font-family: "Cormorant Garamond", Georgia, serif;
+      color: var(--vino);
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ---------- Corazones flotantes ---------- */
+    #corazones {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .corazon {
+      position: absolute;
+      bottom: -60px;
+      color: var(--rosa-fuerte);
+      line-height: 1;
+      user-select: none;
+      animation-name: subir;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes subir {
+      0%   { transform: translateY(0) translateX(0) rotate(-8deg); opacity: 0; }
+      10%  { opacity: var(--op); }
+      50%  { transform: translateY(-55vh) translateX(var(--vaiven)) rotate(8deg); }
+      90%  { opacity: var(--op); }
+      100% { transform: translateY(-115vh) translateX(calc(var(--vaiven) * -1)) rotate(-8deg); opacity: 0; }
+    }
+
+    /* ---------- Contenido ---------- */
+    main {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 26px;
+      padding: calc(28px + env(safe-area-inset-top, 0px)) 20px calc(28px + env(safe-area-inset-bottom, 0px));
+    }
+
+    h1 {
+      font-family: "Great Vibes", "Brush Script MT", cursive;
+      font-weight: 400;
+      font-size: clamp(2.1rem, 9vw, 3.4rem);
+      line-height: 1.15;
+      text-align: center;
+      color: var(--vino);
+      text-shadow: 0 2px 10px rgba(255, 255, 255, 0.7);
+    }
+
+    /* ---------- Marco tipo fotografía ---------- */
+    .foto-marco {
+      width: min(86vw, 360px);
+      background: var(--marco);
+      padding: 14px 14px 22px;
+      border-radius: 4px;
+      box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 18px 40px rgba(122, 31, 69, 0.28),
+        0 4px 10px rgba(122, 31, 69, 0.18);
+      transform: rotate(-1.5deg);
+      border: 1px solid rgba(185, 138, 78, 0.35);
+      animation: aparecer 0.9s ease-out both;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(18px) rotate(-4deg) scale(0.97); }
+      to   { opacity: 1; transform: translateY(0) rotate(-1.5deg) scale(1); }
+    }
+
+    .foto-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      background: linear-gradient(135deg, #ffe3ec, #ffc2d6);
+      overflow: hidden;
+      border-radius: 2px;
+      box-shadow: 0 0 0 1px rgba(185, 138, 78, 0.45);
+    }
+
+    .foto-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Si la foto aún no existe, se muestra un corazón */
+    .foto-wrap.sin-foto::after {
+      content: "♥";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 5rem;
+      color: rgba(214, 58, 115, 0.55);
+    }
+    .foto-wrap.sin-foto img { display: none; }
+
+    .frase {
+      margin-top: 20px;
+      padding: 0 6px;
+      font-family: "Playfair Display", Georgia, serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: clamp(1.05rem, 4.6vw, 1.3rem);
+      line-height: 1.5;
+      text-align: center;
+      color: var(--vino);
+    }
+
+    .te-amo {
+      font-family: "Playfair Display", Georgia, serif;
+      font-weight: 600;
+      font-size: clamp(1.5rem, 6.5vw, 2rem);
+      letter-spacing: 0.28em;
+      padding-left: 0.28em; /* compensa el espaciado para centrar bien */
+      color: var(--rosa-fuerte);
+      text-shadow: 0 2px 10px rgba(255, 255, 255, 0.7);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .corazon { display: none; }
+      .foto-marco { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="corazones" aria-hidden="true"></div>
+
+  <main>
+    <h1>PARA MI ODONTONENA<br>FAVORITA</h1>
+
+    <figure class="foto-marco">
+      <div class="foto-wrap" id="fotoWrap">
+        <img id="foto" alt="Nosotros">
+      </div>
+      <figcaption class="frase" id="frase"></figcaption>
+    </figure>
+
+    <p class="te-amo">TE AMO</p>
+  </main>
+
+  <script>
+    /* =====================================================
+       EDITA AQUÍ: cada foto va con su frase.
+       Pon tus fotos en la carpeta "fotos/" con estos nombres
+       (o cambia las rutas si usas otros nombres).
+       ===================================================== */
+    const recuerdos = [
+      { foto: "fotos/foto1.jpg", frase: "No se como explicarlo, pero contigo siento que estoy exactamente donde quiero estar." },
+      { foto: "fotos/foto2.jpg", frase: "Tu sonrisa es mi tratamiento favorito, y soy adicto a ella." },
+      { foto: "fotos/foto3.jpg", frase: "Entre tantas personas que pude conocer, qué bonito que la vida haya echo que tú y yo coincidiéramos." },
+      { foto: "fotos/foto4.jpg", frase: "A veces no digo todo lo que siento, pero créeme, te amo muchísimo más de lo que sé explicar." },
+      { foto: "fotos/foto5.jpg", frase: "A veces te miro y pienso: qué suerte la mía de poder llamarte mi amor." }
+    ];
+
+    /* ---------- Elegir un recuerdo al azar (sin repetir el anterior) ---------- */
+    function elegirIndice() {
+      let ultimo = -1;
+      try { ultimo = parseInt(localStorage.getItem("ultimoRecuerdo"), 10); } catch (e) {}
+      let i;
+      do {
+        i = Math.floor(Math.random() * recuerdos.length);
+      } while (i === ultimo && recuerdos.length > 1);
+      try { localStorage.setItem("ultimoRecuerdo", i); } catch (e) {}
+      return i;
+    }
+
+    const elegido = recuerdos[elegirIndice()];
+    const img = document.getElementById("foto");
+    const wrap = document.getElementById("fotoWrap");
+
+    img.onerror = () => wrap.classList.add("sin-foto");
+    img.src = elegido.foto;
+    document.getElementById("frase").textContent = elegido.frase;
+
+    /* ---------- Corazones flotantes al azar ---------- */
+    const contenedor = document.getElementById("corazones");
+    const MAX_CORAZONES = 14;   // límite en pantalla para que no se llene
+    const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const simbolos = ["♥", "♥", "♥", "❤"];
+
+    function crearCorazon() {
+      if (reducirMovimiento || contenedor.children.length >= MAX_CORAZONES) return;
+
+      const c = document.createElement("span");
+      c.className = "corazon";
+      c.textContent = simbolos[Math.floor(Math.random() * simbolos.length)];
+
+      const tamano = 14 + Math.random() * 34;            // 14px a 48px
+      const duracion = 8 + Math.random() * 8;            // 8s a 16s
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.fontSize = tamano + "px";
+      c.style.animationDuration = duracion + "s";
+      c.style.setProperty("--op", (0.25 + Math.random() * 0.4).toFixed(2));
+      c.style.setProperty("--vaiven", (Math.random() * 60 - 30).toFixed(0) + "px");
+
+      c.addEventListener("animationend", () => c.remove());
+      contenedor.appendChild(c);
+    }
+
+    // Arranca con algunos corazones repartidos para que no se vea vacío
+    for (let i = 0; i < 7; i++) {
+      setTimeout(crearCorazon, i * 350);
+    }
+    setInterval(crearCorazon, 900);
+  </script>
+</body>
+</html>
